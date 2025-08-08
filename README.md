@@ -1,24 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Obsidian Capital
+
+A modern, responsive website for Obsidian Capital - a quantitative trading firm leveraging algorithms to provide liquidity in financial markets.
+
+## Features
+
+- **Responsive Design**: Fully optimized for desktop and mobile devices
+- **Video Background**: Looping background video on the homepage
+- **Mobile Navigation**: Animated hamburger menu for mobile devices
+- **Modern Typography**: Custom fonts (Figtree & EB Garamond) from Google Fonts
+- **Smooth Animations**: CSS transitions and transforms throughout
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Fonts**: Google Fonts (Figtree, EB Garamond)
+- **Deployment**: GitHub Pages with static export
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
