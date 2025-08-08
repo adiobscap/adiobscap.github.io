@@ -17,20 +17,11 @@ export default function ContactPage() {
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', company: '', message: '' });
-      } else {
-        setSubmitStatus('error');
-      }
+      const { submitContactForm } = await import('@/lib/supabase');
+      await submitContactForm(formData);
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', company: '', message: '' });
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus('error');

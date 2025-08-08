@@ -8,6 +8,7 @@
     "preview": "npx serve out -l 4000"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.54.0",
     "@types/better-sqlite3": "^7.6.13",
     "better-sqlite3": "^12.2.0",
     "next": "15.4.6",

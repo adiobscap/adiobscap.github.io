@@ -8,19 +8,55 @@ export default function QuantitativeTraderApplyPage() {
     name: '',
     email: '',
     phone: '',
-    resume: null,
+    resume: null as File | null,
     coverLetter: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const { submitJobApplicationWithResume } = await import('@/lib/supabase');
+      
+      const applicationData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        position: 'quantitative-trader',
+        position_title: 'Quantitative Trader',
+        cover_letter: formData.coverLetter || undefined,
+      };
+
+      await submitJobApplicationWithResume(applicationData, formData.resume);
+      
+      setSubmitStatus('success');
+      setFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        resume: null, 
+        coverLetter: '' 
+      });
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData(prev => ({ ...prev, resume: file }));
   };
 
   return (
@@ -45,6 +81,16 @@ export default function QuantitativeTraderApplyPage() {
 
         {/* Application Form */}
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
+          {submitStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg text-green-400">
+              Thank you! Your application has been submitted successfully. We'll review it and get back to you soon.
+            </div>
+          )}
+          {submitStatus === 'error' && (
+            <div className="mb-6 p-4 bg-red-500/20 border border-red-500/30 rounded-lg text-red-400">
+              Sorry, there was an error submitting your application. Please try again.
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name Field */}
             <div>
@@ -108,6 +154,7 @@ export default function QuantitativeTraderApplyPage() {
                   name="resume"
                   required
                   accept=".pdf,.doc,.docx"
+                  onChange={handleFileChange}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-purple-600 file:text-white hover:file:bg-purple-700 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
                 />
               </div>
@@ -136,9 +183,10 @@ export default function QuantitativeTraderApplyPage() {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:from-purple-400 disabled:to-blue-400 disabled:cursor-not-allowed text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg disabled:hover:scale-100 disabled:hover:shadow-none"
               >
-                Submit Application
+                {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
               </button>
             </div>
           </form>
