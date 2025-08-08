@@ -1,9 +1,34 @@
 // app/page.tsx
+'use client';
+
 export default function HomePage() {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen bg-smoky-black text-white">
-      {/* Background Image with overlay */}
-      <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-10"></div>
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        style={{
+          filter: 'blur(0px)',
+          backfaceVisibility: 'hidden',
+          transform: 'translateZ(0)',
+          willChange: 'transform'
+        }}
+        className="absolute inset-0 w-full h-full object-cover opacity-80 z-0"
+        onLoadedData={() => {
+          const video = document.querySelector('video') as HTMLVideoElement;
+          if (video) {
+            video.currentTime = 0.1; // Start slightly after beginning to avoid black frame
+          }
+        }}
+      >
+        <source src="/logo-dimmer.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="absolute inset-0 bg-smoky-black/20"></div>
 
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-start max-w-4xl px-8">

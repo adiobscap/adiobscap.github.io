@@ -55,7 +55,7 @@ export default function Header() {
     <header className={`bg-smoky-black w-full shadow-md fixed top-0 z-50 transition-transform duration-300 ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
-      <div className="container mx-auto flex justify-between items-center p-4 text-white">
+      <div className="w-full flex justify-between items-center px-8 py-4 text-white">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-4">
           <Image src="/logo.svg" alt="Obsidian Capital Logo" width={72} height={72} />
