@@ -14,19 +14,11 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build
+
+      - name: Add CNAME file
+        run: |
+          echo "obsidiancapital.in" > ./out/CNAME
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
-
-  deploy:
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - id: deploy
-        uses: actions/deploy-pages@v4

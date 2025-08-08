@@ -1,33 +1,51 @@
 // app/page.tsx
 'use client';
+import { useEffect, useState } from 'react';
 
 export default function HomePage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen bg-smoky-black text-white">
-      {/* Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        style={{
-          filter: 'blur(0px)',
-          backfaceVisibility: 'hidden',
-          transform: 'translateZ(0)',
-          willChange: 'transform'
-        }}
-        className="absolute inset-0 w-full h-full object-cover opacity-80 z-0"
-        onLoadedData={() => {
-          const video = document.querySelector('video') as HTMLVideoElement;
-          if (video) {
-            video.currentTime = 0.1; // Start slightly after beginning to avoid black frame
-          }
-        }}
-      >
-        <source src="/logo-dimmer.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Background Video - Only on desktop for performance */}
+      {!isMobile && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          style={{
+            backfaceVisibility: 'hidden',
+            transform: 'translateZ(0)',
+            willChange: 'transform'
+          }}
+          className="absolute inset-0 w-full h-full object-cover opacity-60 z-0"
+          onLoadedData={() => {
+            const video = document.querySelector('video') as HTMLVideoElement;
+            if (video) {
+              video.currentTime = 0.1;
+            }
+          }}
+        >
+          <source src="/logo-dimmer.mp4" type="video/mp4" />
+        </video>
+      )}
+      
+      {/* Mobile fallback background */}
+      {isMobile && (
+        <div className="absolute inset-0 bg-gradient-to-br from-smoky-black via-gray-900 to-smoky-black opacity-90"></div>
+      )}
       <div className="absolute inset-0 bg-smoky-black/20"></div>
 
       {/* Content Container */}

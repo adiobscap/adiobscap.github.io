@@ -53,7 +53,7 @@ export default function Header() {
   }, [lastScrollY, isVisible]);
 
   return (
-    <header className={`bg-smoky-black w-full shadow-md fixed top-0 z-50 transition-transform duration-300 ${
+    <header className={`bg-gradient-to-br from-purple-950 to-black w-full shadow-md fixed top-0 z-50 transition-transform duration-300 ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <div className="w-full flex justify-between items-center px-8 py-4 text-white">
@@ -65,6 +65,8 @@ export default function Header() {
             width={48} 
             height={48}
             className="md:w-[72px] md:h-[72px]"
+            priority
+            sizes="(max-width: 768px) 48px, 72px"
           />
           <span className="text-xl md:text-3xl font-title tracking-tight">Obsidian Capital</span>
         </Link>
@@ -84,13 +86,13 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden flex flex-col gap-1 p-2"
+          className="md:hidden flex flex-col justify-center items-center w-8 h-8 p-1"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-          <span className={`block w-6 h-0.5 bg-white transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block w-6 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          <span className={`block w-5 h-0.5 bg-white transition-all duration-200 transform ${isMobileMenuOpen ? 'rotate-45 translate-y-1' : ''}`}></span>
+          <span className={`block w-5 h-0.5 bg-white transition-all duration-200 my-0.5 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+          <span className={`block w-5 h-0.5 bg-white transition-all duration-200 transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-1' : ''}`}></span>
         </button>
       </div>
 

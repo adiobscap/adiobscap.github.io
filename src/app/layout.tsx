@@ -10,21 +10,34 @@ import Footer from './components/Footer';
 // Figtree will be our default body font
 const fontBody = Figtree({
   subsets: ['latin'],
-  display: 'swap', // Ensures text is visible while font loads
-  variable: '--font-body', // Creates a CSS variable for the body font
+  display: 'swap',
+  variable: '--font-body',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 // EB Garamond will be our title font
 const fontTitle = EB_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '700'], // Include weights you might need
+  weight: ['400', '700'], // Only include used weights
   display: 'swap',
-  variable: '--font-title', // Creates a CSS variable for the title font
+  variable: '--font-title',
+  preload: true,
+  fallback: ['Georgia', 'serif'],
 });
 
 export const metadata: Metadata = {
-  title: 'Obsidian Capital',
-  description: 'Quantitative trading firm',
+  title: 'Obsidian Capital - Quantitative Trading Firm',
+  description: 'Quantitative trading firm leveraging algorithms to provide liquidity in financial markets',
+  keywords: 'quantitative trading, algorithmic trading, financial markets, liquidity',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#1a1a1a',
 };
 
 export default function RootLayout({
