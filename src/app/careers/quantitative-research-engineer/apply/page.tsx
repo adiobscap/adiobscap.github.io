@@ -83,7 +83,7 @@ export default function QuantitativeResearchEngineerApplyPage() {
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-8">
           {submitStatus === 'success' && (
             <div className="mb-6 p-4 bg-green-500/20 border border-green-500/30 rounded-lg text-green-400">
-              Thank you! Your application has been submitted successfully. We'll review it and get back to you soon.
+              Thank you! Your application has been submitted successfully. We&apos;ll review it and get back to you soon.
             </div>
           )}
           {submitStatus === 'error' && (
