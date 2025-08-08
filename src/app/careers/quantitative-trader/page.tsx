@@ -59,7 +59,7 @@ export default function QuantitativeTraderPage() {
             <p className="text-white/90 leading-relaxed">
               We are looking for a Quantitative Trader to design, implement, and improve algorithmic trading strategies. 
               You will work across the full strategy lifecycle from signal research and backtesting to live deployment 
-              and performance monitoring with direct impact on the firm's profitability.
+              and performance monitoring with direct impact on the firm&apos;s profitability.
             </p>
           </section>
 
