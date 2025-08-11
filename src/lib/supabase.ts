@@ -1,28 +1,11 @@
 // lib/supabase.ts
 import { createClient } from '@supabase/supabase-js'
 
-// Temporary hardcoded values for debugging static export issue
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://uyhjgvhfkbyjompvokro.supabase.co'
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5aGpndmhma2J5am9tcHZva3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NTE3NDYsImV4cCI6MjA3MDIyNzc0Nn0.5phaI8LmcGZJkBv31TqKWaVtiXzrb5Ssi8BYW7OL7-o'
+// Direct values for static export compatibility
+const supabaseUrl = 'https://uyhjgvhfkbyjompvokro.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5aGpndmhma2J5am9tcHZva3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NTE3NDYsImV4cCI6MjA3MDIyNzc0Nn0.5phaI8LmcGZJkBv31TqKWaVtiXzrb5Ssi8BYW7OL7-o'
 
-// Debug: Log environment variables (only in development)
-if (process.env.NODE_ENV === 'development') {
-  console.log('Supabase URL:', supabaseUrl)
-  console.log('Supabase Key exists:', !!supabaseKey)
-}
-
-// Production fallback - check if variables are available
-if (!supabaseUrl || !supabaseKey) {
-  console.error('Missing Supabase environment variables!')
-  console.error('URL:', supabaseUrl)
-  console.error('Key exists:', !!supabaseKey)
-  console.error('NODE_ENV:', process.env.NODE_ENV)
-  
-  // Alert in production for debugging
-  if (typeof window !== 'undefined') {
-    alert(`Supabase config error: URL=${!!supabaseUrl}, Key=${!!supabaseKey}`)
-  }
-}
+console.log('Supabase configured:', { url: supabaseUrl, keyExists: !!supabaseKey })
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
