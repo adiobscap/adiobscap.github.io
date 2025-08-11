@@ -20,28 +20,19 @@ export default function QuantitativeResearchEngineerApplyPage() {
     setSubmitStatus('idle');
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('phone', formData.phone);
-      formDataToSend.append('position', 'quantitative-research-engineer');
-      formDataToSend.append('position_title', 'Quantitative Research Engineer');
-      formDataToSend.append('cover_letter', formData.coverLetter);
+      const { submitJobApplicationWithResume } = await import('@/lib/supabase');
       
-      if (formData.resume) {
-        formDataToSend.append('resume', formData.resume);
-      }
+      const applicationData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        position: 'quantitative-research-engineer',
+        position_title: 'Quantitative Research Engineer',
+        cover_letter: formData.coverLetter || undefined,
+      };
 
-      const response = await fetch('/api/job-application', {
-        method: 'POST',
-        body: formDataToSend,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit application');
-      }
-
+      await submitJobApplicationWithResume(applicationData, formData.resume);
+      
       setSubmitStatus('success');
       setFormData({ 
         name: '', 

@@ -36,31 +36,20 @@ export interface JobApplication {
 
 // Helper functions
 export async function submitContactForm(data: ContactSubmission) {
-  console.log('Attempting to submit contact form with data:', data);
-  
   const { error } = await supabase
     .from('contact_submissions')
     .insert([data])
   
   if (error) {
-    console.error('Supabase error in submitContactForm:', error);
-    console.error('Error type:', typeof error);
-    console.error('Error keys:', Object.keys(error));
-    console.error('Error values:', Object.values(error));
-    console.error('Error message:', error.message);
-    console.error('Error code:', error.code);
-    console.error('Error details:', error.details);
-    console.error('Error hint:', error.hint);
-    console.error('JSON stringify:', JSON.stringify(error, null, 2));
+    console.error('Contact form submission failed:', error.message || error);
     throw error;
   }
   
-  console.log('Contact form submitted successfully');
   return { success: true }
 }
 
 export async function submitJobApplication(data: JobApplication) {
-  console.log('Attempting to submit job application with data:', data);
+  console.log('Submitting job application with data:', data);
   
   const { data: application, error } = await supabase
     .from('job_applications')
@@ -69,15 +58,9 @@ export async function submitJobApplication(data: JobApplication) {
     .single()
   
   if (error) {
-    console.error('Supabase error in submitJobApplication:', error);
-    console.error('Error type:', typeof error);
-    console.error('Error keys:', Object.keys(error));
-    console.error('Error values:', Object.values(error));
-    console.error('Error message:', error.message);
-    console.error('Error code:', error.code);
-    console.error('Error details:', error.details);
-    console.error('Error hint:', error.hint);
-    console.error('JSON stringify:', JSON.stringify(error, null, 2));
+    console.error('Job application submission failed:', error.message || error);
+    console.error('Full error object:', error);
+    console.error('Data that failed:', data);
     throw error;
   }
   
@@ -86,8 +69,6 @@ export async function submitJobApplication(data: JobApplication) {
 }
 
 export async function uploadResume(file: File, applicationId: string) {
-  console.log('Attempting to upload resume:', { fileName: file.name, applicationId, fileSize: file.size });
-  
   const fileExt = file.name.split('.').pop()
   const fileName = `${applicationId}.${fileExt}`
   
@@ -98,7 +79,7 @@ export async function uploadResume(file: File, applicationId: string) {
     })
   
   if (error) {
-    console.error('Supabase error in uploadResume:', error);
+    console.error('Resume upload failed:', error.message || error);
     throw error;
   }
   
@@ -107,7 +88,6 @@ export async function uploadResume(file: File, applicationId: string) {
     .from('resumes')
     .getPublicUrl(fileName)
   
-  console.log('Resume uploaded successfully:', { fileName, publicUrl });
   return { fileName, publicUrl }
 }
 
@@ -115,10 +95,6 @@ export async function submitJobApplicationWithResume(
   applicationData: JobApplication, 
   resumeFile?: File | null
 ) {
-  console.log('Starting submitJobApplicationWithResume process');
-  console.log('Application data:', applicationData);
-  console.log('Resume file:', resumeFile ? { name: resumeFile.name, size: resumeFile.size } : 'No file');
-  
   // Submit application first
   const application = await submitJobApplication(applicationData)
   
@@ -137,16 +113,13 @@ export async function submitJobApplicationWithResume(
         .eq('id', application.id)
       
       if (updateError) {
-        console.error('Error updating resume info:', updateError)
-      } else {
-        console.log('Resume info updated successfully in application');
+        console.error('Failed to update resume info:', updateError.message || updateError)
       }
     } catch (uploadError) {
-      console.error('Error uploading resume:', uploadError)
+      console.error('Resume upload failed:', uploadError instanceof Error ? uploadError.message : uploadError)
       // Continue without failing the entire application
     }
   }
   
-  console.log('submitJobApplicationWithResume completed successfully');
   return application
 }

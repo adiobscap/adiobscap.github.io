@@ -20,28 +20,19 @@ export default function QuantitativeTraderApplyPage() {
     setSubmitStatus('idle');
 
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('phone', formData.phone);
-      formDataToSend.append('position', 'quantitative-trader');
-      formDataToSend.append('position_title', 'Quantitative Trader');
-      formDataToSend.append('cover_letter', formData.coverLetter);
+      const { submitJobApplicationWithResume } = await import('@/lib/supabase');
       
-      if (formData.resume) {
-        formDataToSend.append('resume', formData.resume);
-      }
+      const applicationData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        position: 'quantitative-trader',
+        position_title: 'Quantitative Trader',
+        cover_letter: formData.coverLetter || undefined,
+      };
 
-      const response = await fetch('/api/job-application', {
-        method: 'POST',
-        body: formDataToSend,
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit application');
-      }
-
+      await submitJobApplicationWithResume(applicationData, formData.resume);
+      
       setSubmitStatus('success');
       setFormData({ 
         name: '', 
@@ -52,6 +43,25 @@ export default function QuantitativeTraderApplyPage() {
       });
     } catch (error) {
       console.error('Error submitting application:', error);
+      console.error('Error type:', typeof error);
+      
+      // Type-safe error property access
+      if (error && typeof error === 'object' && error !== null) {
+        const errorObj = error as Record<string, unknown>;
+        console.error('Error constructor:', errorObj.constructor?.toString());
+        console.error('Error message:', errorObj.message);
+        console.error('Error code:', errorObj.code);
+        console.error('Error details:', errorObj.details);
+        console.error('Error hint:', errorObj.hint);
+        console.error('Object keys:', Object.keys(errorObj));
+        console.error('Object values:', Object.values(errorObj));
+        
+        for (const key in errorObj) {
+          console.error(`error.${key}:`, errorObj[key]);
+        }
+      }
+      
+      console.error('JSON stringify:', JSON.stringify(error, null, 2));
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
