@@ -15,6 +15,12 @@ if (!supabaseUrl || !supabaseKey) {
   console.error('Missing Supabase environment variables!')
   console.error('URL:', supabaseUrl)
   console.error('Key exists:', !!supabaseKey)
+  console.error('NODE_ENV:', process.env.NODE_ENV)
+  
+  // Alert in production for debugging
+  if (typeof window !== 'undefined') {
+    alert(`Supabase config error: URL=${!!supabaseUrl}, Key=${!!supabaseKey}`)
+  }
 }
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
