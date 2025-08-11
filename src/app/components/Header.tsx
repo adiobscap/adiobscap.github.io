@@ -69,8 +69,7 @@ export default function Header() {
             sizes="(max-width: 768px) 48px, 72px"
             loading="eager"
             fetchPriority="high"
-            placeholder="blur"
-            blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiM5MDkwOTAiLz4KPHN2Zz4K"
+            placeholder="empty"
           />
           <span className="text-xl md:text-3xl font-title tracking-tight">Obsidian Capital</span>
         </Link>
