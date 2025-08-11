@@ -71,8 +71,11 @@ export default function ContactPage() {
                 <div>
                   <h4 className="text-lg font-medium mb-2 text-white/90">Office</h4>
                   <p className="text-white/70">
-                    123 Financial District<br />
-                    New York, NY 10004
+                    601-605, HetDiv Square<br />
+                    Opp. Satyam House<br />
+                    Behind Courtyard Marriott<br />
+                    Sindhubhavan Road<br />
+                    Ahmedabad - 380054
                   </p>
                 </div>
               </div>
