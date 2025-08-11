@@ -96,9 +96,11 @@ export default function QuantitativeTraderApplyPage() {
         <div className="text-center mb-12">
           <h1 className="font-title text-4xl md:text-5xl font-bold mb-4">Apply for Position</h1>
           <p className="text-xl text-white/80">Quantitative Trader</p>
-          {/* Debug info */}
-          <div className="text-xs text-white/50 mt-2">
-            Config: URL={!!process.env.NEXT_PUBLIC_SUPABASE_URL} | KEY={!!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}
+          {/* Debug info - make it more visible */}
+          <div className="bg-red-500/20 border border-red-500/30 rounded p-2 mt-4 text-sm text-red-300">
+            <strong>DEBUG:</strong> URL={!!process.env.NEXT_PUBLIC_SUPABASE_URL ? 'YES' : 'NO'} | KEY={!!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'YES' : 'NO'}
+            <br />
+            URL Value: {process.env.NEXT_PUBLIC_SUPABASE_URL || 'MISSING'}
           </div>
         </div>
 
