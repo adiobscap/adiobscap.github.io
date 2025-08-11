@@ -1,11 +1,23 @@
 // lib/supabase.ts
 import { createClient } from '@supabase/supabase-js'
 
-// Direct values for static export compatibility
+// Direct values for static export compatibility - Updated at 2025-01-11
 const supabaseUrl = 'https://uyhjgvhfkbyjompvokro.supabase.co'
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5aGpndmhma2J5am9tcHZva3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NTE3NDYsImV4cCI6MjA3MDIyNzc0Nn0.5phaI8LmcGZJkBv31TqKWaVtiXzrb5Ssi8BYW7OL7-o'
 
+console.log('Supabase lib loaded at:', new Date().toISOString())
 console.log('Supabase configured:', { url: supabaseUrl, keyExists: !!supabaseKey })
+
+// Add runtime validation
+if (!supabaseUrl) {
+  console.error('CRITICAL: supabaseUrl is empty!', supabaseUrl)
+  throw new Error('Supabase URL is not defined')
+}
+
+if (!supabaseKey) {
+  console.error('CRITICAL: supabaseKey is empty!', supabaseKey)
+  throw new Error('Supabase key is not defined')
+}
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
