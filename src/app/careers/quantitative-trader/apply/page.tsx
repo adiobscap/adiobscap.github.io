@@ -96,10 +96,6 @@ export default function QuantitativeTraderApplyPage() {
         <div className="text-center mb-12">
           <h1 className="font-title text-4xl md:text-5xl font-bold mb-4">Apply for Position</h1>
           <p className="text-xl text-white/80">Quantitative Trader</p>
-          {/* Visible rebuild indicator */}
-          <div className="text-xs text-green-400 mt-2">
-            Build: 2025-01-11-v2 - Hardcoded Values
-          </div>
         </div>
 
         {/* Application Form */}
