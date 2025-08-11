@@ -4,6 +4,19 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
+// Debug: Log environment variables (only in development)
+if (process.env.NODE_ENV === 'development') {
+  console.log('Supabase URL:', supabaseUrl)
+  console.log('Supabase Key exists:', !!supabaseKey)
+}
+
+// Production fallback - check if variables are available
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing Supabase environment variables!')
+  console.error('URL:', supabaseUrl)
+  console.error('Key exists:', !!supabaseKey)
+}
+
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Types for our database tables
