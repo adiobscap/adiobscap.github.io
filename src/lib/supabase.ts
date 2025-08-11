@@ -1,8 +1,9 @@
 // lib/supabase.ts
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Temporary hardcoded values for debugging static export issue
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://uyhjgvhfkbyjompvokro.supabase.co'
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV5aGpndmhma2J5am9tcHZva3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ2NTE3NDYsImV4cCI6MjA3MDIyNzc0Nn0.5phaI8LmcGZJkBv31TqKWaVtiXzrb5Ssi8BYW7OL7-o'
 
 // Debug: Log environment variables (only in development)
 if (process.env.NODE_ENV === 'development') {
