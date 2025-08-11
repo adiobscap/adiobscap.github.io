@@ -20,19 +20,28 @@ export default function SeniorSoftwareEngineerApplyPage() {
     setSubmitStatus('idle');
 
     try {
-      const { submitJobApplicationWithResume } = await import('@/lib/supabase');
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('position', 'senior-software-engineer');
+      formDataToSend.append('position_title', 'Senior Software Engineer');
+      formDataToSend.append('cover_letter', formData.coverLetter);
       
-      const applicationData = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || undefined,
-        position: 'senior-software-engineer',
-        position_title: 'Senior Software Engineer',
-        cover_letter: formData.coverLetter || undefined,
-      };
+      if (formData.resume) {
+        formDataToSend.append('resume', formData.resume);
+      }
 
-      await submitJobApplicationWithResume(applicationData, formData.resume);
-      
+      const response = await fetch('/api/job-application', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit application');
+      }
+
       setSubmitStatus('success');
       setFormData({ 
         name: '', 
