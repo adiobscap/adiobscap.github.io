@@ -91,7 +91,7 @@ export async function uploadResume(file: File, applicationId: string) {
   const fileExt = file.name.split('.').pop()
   const fileName = `${applicationId}.${fileExt}`
   
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from('resumes')
     .upload(fileName, file, {
       upsert: true
