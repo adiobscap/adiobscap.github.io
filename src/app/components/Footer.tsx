@@ -37,7 +37,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://scores.gov.in" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                <a href="https://scores.sebi.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   SCORES (SEBI complaint portal)
                 </a>
               </li>
