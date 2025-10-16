@@ -49,7 +49,7 @@ export default function RootLayout({
     <html lang="en">
       {/* 3. Apply the font variables to the body tag */}
       <body
-        className={`${fontBody.variable} ${fontTitle.variable} bg-smoky-black font-sans`}
+        className={`${fontBody.variable} ${fontTitle.variable} bg-black font-sans`}
       >
         <Header />
         <main className="pt-20">{children}</main>

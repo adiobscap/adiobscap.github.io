@@ -53,7 +53,7 @@ export default function Header() {
   }, [lastScrollY, isVisible]);
 
   return (
-    <header className={`bg-gradient-to-br from-purple-950 to-black w-full shadow-md fixed top-0 z-50 transition-transform duration-300 ${
+    <header className={`bg-gradient-to-b from-purple-950 to-black w-full shadow-md fixed top-0 z-50 transition-transform duration-300 ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <div className="w-full flex justify-between items-center px-8 py-4 text-white">
