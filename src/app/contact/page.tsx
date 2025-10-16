@@ -65,7 +65,7 @@ export default function ContactPage() {
                 
                 <div>
                   <h4 className="text-lg font-medium mb-2 text-white/90">Phone</h4>
-                  <p className="text-white/70">+1 (555) 123-4567</p>
+                  <p className="text-white/70">+91 79 26563289</p>
                 </div>
                 
                 <div>
