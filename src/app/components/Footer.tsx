@@ -6,13 +6,13 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="space-y-3 text-sm text-white/80">
           <p className="leading-relaxed">
-            {"{{Company Legal Name}} | SEBI Reg. No.: {{INZXXXXXXXXXXX}} | Exchange Membership(s): {{NSE – {{Segment(s)}} Member ID: {{XXXXX}}}}{{ | BSE – {{Segment(s)}} Member ID: {{XXXXX}}}}"}
+            {"Obsidian Investment Pvt. Ltd. | SEBI Reg. No.: INZ000330031 | Exchange Membership(s): {{NSE – {{Segment(s)}} Member ID: {{XXXXX}}}}{{ | BSE – {{Segment(s)}} Member ID: {{XXXXX}}}}"}
           </p>
           <p className="leading-relaxed">
-            {"Registered Office: {{Full Address, City, State, PIN}} | Tel: {{+91-XXXXXXXXXX}} | Email: {{contact@yourdomain.com}}"}
+            {"Registered Office: 605, Hetdiv Square, behind Hotel Marriott, Opp Astral House, Sindhu Bhavan Road, Bodakdev, Ahmedabad, Gujarat 380054, India | Tel: {{+91-XXXXXXXXXX}} | Email: admin@obsidiancapital.in"}
           </p>
           <p className="leading-relaxed">
-            {"Compliance Officer: {{Full Name}} | Email: {{compliance@yourdomain.com}} | Tel: {{+91-XXXXXXXXXX}}"}
+            {"Compliance Officer: Karna Rajesh Agrawal | Email: karna@obsidiancapital.in | Tel: {{+91-XXXXXXXXXX}}"}
           </p>
           <p className="leading-relaxed text-white/70">
             <span className="text-white/80">Note:</span> {" {{Company Short Name}} is a "}
