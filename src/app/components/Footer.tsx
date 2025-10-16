@@ -9,7 +9,7 @@ export default function Footer() {
             {"Obsidian Investment Pvt. Ltd. | SEBI Reg. No.: INZ000330031 | Member of NSE"}
           </p>
           <p className="leading-relaxed">
-            {"Registered Office: 605, Hetdiv Square, behind Hotel Marriott, Opp Astral House, Sindhu Bhavan Road, Bodakdev, Ahmedabad, Gujarat 380054, India | Tel: {{+91-XXXXXXXXXX}} | Email: admin@obsidiancapital.in"}
+            {"Registered Office: 605, Hetdiv Square, behind Hotel Marriott, Opp Astral House, Sindhu Bhavan Road, Bodakdev, Ahmedabad, Gujarat 380054, India | Tel: +079-26563289 | Email: admin@obsidiancapital.in"}
           </p>
           <p className="leading-relaxed text-white/70">
             <span className="text-white/80">Note:</span> {" Obsidian Capital is a "}
