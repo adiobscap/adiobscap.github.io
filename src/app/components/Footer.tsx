@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="space-y-3 text-sm text-white/80">
           <p className="leading-relaxed">
-            {"Obsidian Investment Pvt. Ltd. | SEBI Reg. No.: INZ000330031 | Exchange Membership(s): {{NSE – {{Segment(s)}} Member ID: {{XXXXX}}}}{{ | BSE – {{Segment(s)}} Member ID: {{XXXXX}}}}"}
+            {"Obsidian Investment Pvt. Ltd. | SEBI Reg. No.: INZ000330031 | Member of NSE"}
           </p>
           <p className="leading-relaxed">
             {"Registered Office: 605, Hetdiv Square, behind Hotel Marriott, Opp Astral House, Sindhu Bhavan Road, Bodakdev, Ahmedabad, Gujarat 380054, India | Tel: {{+91-XXXXXXXXXX}} | Email: admin@obsidiancapital.in"}
