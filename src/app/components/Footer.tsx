@@ -19,7 +19,7 @@ export default function Footer() {
             {", "}
             <strong>do not solicit or accept funds/securities from the public</strong>
             {", and "}
-            <strong>do not offer broking services to investors</strong>
+            <strong>do not offer broking services to investors.</strong>
           </p>
         </div>
 
