@@ -60,7 +60,7 @@ export default function ContactPage() {
               <div className="space-y-4">
                 <div>
                   <h4 className="text-lg font-medium mb-2 text-white/90">Email</h4>
-                  <p className="text-white/70">contact@obsidiancapital.com</p>
+                  <p className="text-white/70">admin@obsidiancapital.in</p>
                 </div>
                 
                 <div>
