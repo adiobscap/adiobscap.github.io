@@ -11,11 +11,8 @@ export default function Footer() {
           <p className="leading-relaxed">
             {"Registered Office: 605, Hetdiv Square, behind Hotel Marriott, Opp Astral House, Sindhu Bhavan Road, Bodakdev, Ahmedabad, Gujarat 380054, India | Tel: {{+91-XXXXXXXXXX}} | Email: admin@obsidiancapital.in"}
           </p>
-          <p className="leading-relaxed">
-            {"Compliance Officer: Karna Rajesh Agrawal | Email: karna@obsidiancapital.in | Tel: {{+91-XXXXXXXXXX}}"}
-          </p>
           <p className="leading-relaxed text-white/70">
-            <span className="text-white/80">Note:</span> {" {{Company Short Name}} is a "}
+            <span className="text-white/80">Note:</span> {" Obsidian Capital is a "}
             <strong>Proprietary Trading Member</strong>
             {". We "}
             <strong>do not onboard clients</strong>
@@ -23,7 +20,6 @@ export default function Footer() {
             <strong>do not solicit or accept funds/securities from the public</strong>
             {", and "}
             <strong>do not offer broking services to investors</strong>
-            {". (Prop-only; no client base.)"}
           </p>
         </div>
 
