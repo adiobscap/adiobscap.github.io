@@ -13,17 +13,31 @@ export default function CosmosBackground() {
 
     console.log('CosmosBackground: Initializing...');
 
+    const container = containerRef.current;
+
     let scene: THREE.Scene,
         camera: THREE.PerspectiveCamera,
         renderer: THREE.WebGLRenderer,
         controls: OrbitControls;
-    let stars: any[] = [];
-    let starMeshes: THREE.Mesh[] = [];
+    let stars: StarData[] = [];
+    const starMeshes: THREE.Mesh[] = [];
     let raycaster: THREE.Raycaster,
         mouse: THREE.Vector2;
     let isAnimating = true;
     let selectedStar: THREE.Mesh | null = null;
     let animationId: number;
+
+    interface StarData {
+      name: string;
+      ra: number;
+      dec: number;
+      magnitude: number;
+      color: string;
+      distance: number;
+      risk?: number;
+      return?: number;
+      sharpe?: number;
+    }
 
     const init = () => {
       if (!containerRef.current) return;
@@ -129,15 +143,13 @@ export default function CosmosBackground() {
     };
 
     const createStarField = () => {
-      stars.forEach((star: any, index: number) => {
+      stars.forEach((star: StarData, index: number) => {
         const position = raDecToCartesian(star.ra, star.dec, star.distance);
         const size = Math.max(0.1, 0.4 - star.magnitude * 0.1);
 
         const geometry = new THREE.SphereGeometry(size, 16, 16);
         const material = new THREE.MeshBasicMaterial({
-          color: 0xffffff,
-          emissive: 0xffffff,
-          emissiveIntensity: 0.5
+          color: 0xffffff
         });
 
         const starMesh = new THREE.Mesh(geometry, material);
@@ -192,7 +204,7 @@ export default function CosmosBackground() {
       }
     };
 
-    const showStarInfo = (star: any) => {
+    const showStarInfo = (star: StarData) => {
       const infoPanel = document.getElementById('star-info');
       if (!infoPanel) return;
 
@@ -253,8 +265,8 @@ export default function CosmosBackground() {
         cancelAnimationFrame(animationId);
       }
 
-      if (renderer && containerRef.current && containerRef.current.contains(renderer.domElement)) {
-        containerRef.current.removeChild(renderer.domElement);
+      if (renderer && container && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
         renderer.dispose();
       }
 
