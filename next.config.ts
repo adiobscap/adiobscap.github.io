@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
 
   // Optional: Change the output directory `out` -> `dist`
   // distDir: 'dist',
- 
+
   // Optional: Disable image optimization for static exports
   // This is recommended for GitHub Pages.
   images: {

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Cosmos Visualization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            max-width: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #info-panel h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #4db8ff;
+        }
+
+        #info-panel p {
+            margin: 5px 0;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #controls h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #4db8ff;
+        }
+
+        #controls p {
+            margin: 3px 0;
+        }
+
+        #star-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            min-width: 250px;
+            border: 2px solid #4db8ff;
+            display: none;
+        }
+
+        #star-info h3 {
+            margin: 0 0 10px 0;
+            color: #4db8ff;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+
+    <div id="star-info"></div>
+
+    <div class="loading" id="loading">Loading star catalog...</div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        let scene, camera, renderer, controls;
+        let stars = [];
+        let starMeshes = [];
+        let raycaster, mouse;
+        let isAnimating = true;
+        let selectedStar = null;
+
+        // Initialize the scene
+        function init() {
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x000510);
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(
+                75,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                10000
+            );
+            camera.position.set(0, 50, 200);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            // Controls
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 50;
+            controls.maxDistance = 1000;
+
+            // Raycaster for mouse interaction
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+
+            // Add ambient starfield background
+            addBackgroundStars();
+
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            // Event listeners
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('click', onMouseClick);
+            window.addEventListener('keydown', onKeyDown);
+
+            // Load star data
+            loadStarData();
+        }
+
+        // Add background stars
+        function addBackgroundStars() {
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+
+            for (let i = 0; i < 5000; i++) {
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(Math.random() * 2 - 1);
+                const radius = 800 + Math.random() * 200;
+
+                vertices.push(
+                    radius * Math.sin(phi) * Math.cos(theta),
+                    radius * Math.sin(phi) * Math.sin(theta),
+                    radius * Math.cos(phi)
+                );
+            }
+
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+            const material = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.5,
+                transparent: true,
+                opacity: 0.6
+            });
+
+            const backgroundStars = new THREE.Points(geometry, material);
+            scene.add(backgroundStars);
+        }
+
+        // Load star catalog data
+        async function loadStarData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                stars = data.stars;
+
+                document.getElementById('loading').style.display = 'none';
+
+                createStarField();
+            } catch (error) {
+                console.error('Error loading star data:', error);
+                document.getElementById('loading').textContent = 'Error loading data. Please ensure data.json exists.';
+            }
+        }
+
+        // Convert astronomical coordinates to 3D position
+        function raDecToCartesian(ra, dec, distance) {
+            const raRad = (ra * Math.PI) / 180;
+            const decRad = (dec * Math.PI) / 180;
+            const scale = distance / 10; // Scale factor for visualization
+
+            return new THREE.Vector3(
+                scale * Math.cos(decRad) * Math.cos(raRad),
+                scale * Math.sin(decRad),
+                scale * Math.cos(decRad) * Math.sin(raRad)
+            );
+        }
+
+        // Create star field from catalog data
+        function createStarField() {
+            stars.forEach((star, index) => {
+                const position = raDecToCartesian(star.ra, star.dec, star.distance);
+
+                // Size based on magnitude (brighter stars = larger)
+                const size = Math.max(0.1, 0.4 - star.magnitude * 0.1);
+
+                // Create star geometry - all stars are white
+                const geometry = new THREE.SphereGeometry(size, 16, 16);
+                const material = new THREE.MeshBasicMaterial({
+                    color: 0xffffff,
+                    emissive: 0xffffff,
+                    emissiveIntensity: 0.5
+                });
+
+                const starMesh = new THREE.Mesh(geometry, material);
+                starMesh.position.copy(position);
+                starMesh.userData = { index, star };
+
+                // Add glow effect
+                const glowGeometry = new THREE.SphereGeometry(size * 1.5, 16, 16);
+                const glowMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.3
+                });
+                const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+                starMesh.add(glow);
+
+                scene.add(starMesh);
+                starMeshes.push(starMesh);
+            });
+        }
+
+        // Handle window resize
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Handle mouse clicks
+        function onMouseClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(starMeshes);
+
+            if (intersects.length > 0) {
+                const star = intersects[0].object.userData.star;
+                showStarInfo(star);
+
+                // Highlight selected star
+                if (selectedStar) {
+                    selectedStar.scale.set(1, 1, 1);
+                }
+                selectedStar = intersects[0].object;
+                selectedStar.scale.set(1.5, 1.5, 1.5);
+            }
+        }
+
+        // Handle keyboard input
+        function onKeyDown(event) {
+            if (event.code === 'Space') {
+                isAnimating = !isAnimating;
+            }
+        }
+
+        // Show star information
+        function showStarInfo(star) {
+            const infoPanel = document.getElementById('star-info');
+            let html = `
+                <h3>${star.name}</h3>
+            `;
+
+            // Add portfolio metrics if available (frontier stars)
+            if (star.risk !== undefined && star.return !== undefined) {
+                html += `
+                    <p><strong>Risk (σ):</strong> ${star.risk.toFixed(3)}</p>
+                    <p><strong>Return (μ):</strong> ${star.return.toFixed(3)}</p>
+                    <p><strong>Sharpe Ratio:</strong> ${star.sharpe !== undefined ? star.sharpe.toFixed(3) : 'N/A'}</p>
+                    <p style="margin-top: 10px; font-size: 11px; color: #888;">On Efficient Frontier</p>
+                `;
+            } else {
+                html += `
+                    <p><strong>Magnitude:</strong> ${star.magnitude}</p>
+                    <p><strong>Distance:</strong> ${star.distance} light years</p>
+                    <p style="margin-top: 10px; font-size: 11px; color: #888;">Background star</p>
+                `;
+            }
+
+            infoPanel.innerHTML = html;
+            infoPanel.style.display = 'block';
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (isAnimating) {
+                // Gentle rotation of the scene
+                scene.rotation.y += 0.0002;
+
+                // Pulsing effect for stars
+                starMeshes.forEach((mesh, index) => {
+                    const time = Date.now() * 0.001;
+                    const scale = 1 + Math.sin(time + index) * 0.1;
+                    if (mesh !== selectedStar) {
+                        mesh.children[0].scale.set(scale, scale, scale);
+                    }
+                });
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Start the application
+        init();
+        animate();
+    </script>
+</body>
+</html>
