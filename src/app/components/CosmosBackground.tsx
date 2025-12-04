@@ -84,7 +84,6 @@ export default function CosmosBackground() {
 
       // Event listeners
       window.addEventListener('resize', onWindowResize);
-      window.addEventListener('click', onMouseClick);
       window.addEventListener('keydown', onKeyDown);
     };
 
@@ -177,56 +176,10 @@ export default function CosmosBackground() {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    const onMouseClick = (event: MouseEvent) => {
-      if (!camera || !raycaster) return;
-
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(starMeshes);
-
-      if (intersects.length > 0) {
-        const star = intersects[0].object.userData.star;
-        showStarInfo(star);
-
-        if (selectedStar) {
-          selectedStar.scale.set(1, 1, 1);
-        }
-        selectedStar = intersects[0].object as THREE.Mesh;
-        selectedStar.scale.set(1.5, 1.5, 1.5);
-      }
-    };
-
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.code === 'Space') {
         isAnimating = !isAnimating;
       }
-    };
-
-    const showStarInfo = (star: StarData) => {
-      const infoPanel = document.getElementById('star-info');
-      if (!infoPanel) return;
-
-      let html = `<h3>${star.name}</h3>`;
-
-      if (star.risk !== undefined && star.return !== undefined) {
-        html += `
-          <p><strong>Risk (σ):</strong> ${star.risk.toFixed(3)}</p>
-          <p><strong>Return (μ):</strong> ${star.return.toFixed(3)}</p>
-          <p><strong>Sharpe Ratio:</strong> ${star.sharpe !== undefined ? star.sharpe.toFixed(3) : 'N/A'}</p>
-          <p style="margin-top: 10px; font-size: 11px; color: #888;">On Efficient Frontier</p>
-        `;
-      } else {
-        html += `
-          <p><strong>Magnitude:</strong> ${star.magnitude}</p>
-          <p><strong>Distance:</strong> ${star.distance} light years</p>
-          <p style="margin-top: 10px; font-size: 11px; color: #888;">Background star</p>
-        `;
-      }
-
-      infoPanel.innerHTML = html;
-      infoPanel.style.display = 'block';
     };
 
     const animate = () => {
@@ -258,7 +211,6 @@ export default function CosmosBackground() {
     // Cleanup
     return () => {
       window.removeEventListener('resize', onWindowResize);
-      window.removeEventListener('click', onMouseClick);
       window.removeEventListener('keydown', onKeyDown);
 
       if (animationId) {
@@ -280,13 +232,5 @@ export default function CosmosBackground() {
     };
   }, []);
 
-  return (
-    <>
-      <div ref={containerRef} className="absolute inset-0 w-full h-full z-0" />
-      <div
-        id="star-info"
-        className="fixed top-20 right-5 bg-black/90 text-white p-4 rounded-lg text-sm min-w-[250px] border-2 border-blue-400 hidden z-50"
-      />
-    </>
-  );
+  return <div ref={containerRef} className="absolute inset-0 w-full h-full z-0" />;
 }
