@@ -17,6 +17,14 @@
 /.next/
 /out/
 
+# python helper scripts (generate_stars.py)
+.venv/
+__pycache__/
+*.pyc
+
+# SQLite — no database files should be committed
+*.db
+
 # production
 /build
 
