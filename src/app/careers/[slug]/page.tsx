@@ -5,7 +5,13 @@
 // mode. All content comes from src/data/jobs.json via src/lib/jobs.
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllJobs, getCompany, getJobBySlug, resolveJob } from '@/lib/jobs';
+import {
+  buildJobPostingJsonLd,
+  getAllJobs,
+  getCompany,
+  getJobBySlug,
+  resolveJob,
+} from '@/lib/jobs';
 
 // Pre-render one static page per job slug at build time.
 export function generateStaticParams() {
@@ -25,8 +31,21 @@ export default async function JobDetailPage({ params }: PageProps) {
   const company = getCompany();
   const overviewParagraphs = Array.isArray(job.overview) ? job.overview : [job.overview];
 
+  // Emit Google for Jobs structured data only when the role opts in
+  // by setting `datePosted`. `<` is escaped to prevent a stray
+  // </script> sequence in the JSON from breaking parsing.
+  const jsonLd = job.datePosted
+    ? JSON.stringify(buildJobPostingJsonLd(resolved, company)).replace(/</g, '\\u003c')
+    : null;
+
   return (
     <div className="min-h-screen bg-smoky-black text-white py-24">
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      )}
       <div className="max-w-4xl mx-auto px-8">
         {/* Back Button */}
         <Link
@@ -95,15 +114,29 @@ export default async function JobDetailPage({ params }: PageProps) {
 
           {/* Apply Button */}
           <div className="text-center pt-8">
-            <Link
-              href={`/careers/${job.slug}/apply`}
-              className="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg backdrop-blur-sm"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-              Apply for this Position
-            </Link>
+            {job.applyUrl ? (
+              <a
+                href={job.applyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg backdrop-blur-sm"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                Apply for this Position
+              </a>
+            ) : (
+              <Link
+                href={`/careers/${job.slug}/apply`}
+                className="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg backdrop-blur-sm"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                Apply for this Position
+              </Link>
+            )}
           </div>
         </div>
       </div>

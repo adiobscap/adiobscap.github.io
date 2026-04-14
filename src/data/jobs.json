@@ -1,7 +1,16 @@
 {
   "company": {
     "name": "Obsidian Capital",
-    "about": "Obsidian Capital is a quantitative trading firm, leveraging algorithms and low-latency technologies to provide liquidity in financial markets. Our team develops and implements advanced trading strategies that quickly respond to market dynamics. We strategically deploy proprietary capital for active trading, utilizing quantitative models to generate consistent returns."
+    "about": "Obsidian Capital is a quantitative trading firm, leveraging algorithms and low-latency technologies to provide liquidity in financial markets. Our team develops and implements advanced trading strategies that quickly respond to market dynamics. We strategically deploy proprietary capital for active trading, utilizing quantitative models to generate consistent returns.",
+    "url": "https://obsidiancapital.in",
+    "logo": "/logo.svg",
+    "address": {
+      "streetAddress": "605, Hetdiv Square, Sindhu Bhavan Road, Bodakdev",
+      "addressLocality": "Ahmedabad",
+      "addressRegion": "GJ",
+      "postalCode": "380054",
+      "addressCountry": "IN"
+    }
   },
   "defaults": {
     "location": "Ahmedabad, Gujarat",
@@ -11,99 +20,49 @@
   },
   "jobs": [
     {
-      "slug": "quantitative-trader",
-      "title": "Quantitative Trader",
-      "overview": "We are looking for a Quantitative Trader to design, implement, and improve algorithmic trading strategies. You will work across the full strategy lifecycle from signal research and backtesting to live deployment and performance monitoring with direct impact on the firm's profitability.",
-      "responsibilities": [
-        "Design, implement, and maintain data-driven trading strategies",
-        "Analyze high-frequency market data to identify patterns and inefficiencies",
-        "Monitor strategies in production and adjust parameters based on live feedback",
-        "Perform post-trade analysis and risk reviews to optimize performance and stability",
-        "Collaborate with quantitative researchers and software developers to improve execution logic and system performance"
-      ],
-      "requiredQualifications": [
-        "Strong background in mathematics, statistics, physics, or data science, with emphasis on strong probabilistic thinking",
-        "Proficiency in Python/C#/C++",
-        "Analytical mindset with the ability to interpret market data and performance metrics",
-        "Passion for financial markets and strong trading intuition, with the ability to identify patterns and assess risk in dynamic market environments",
-        "A proactive mindset with a willingness to take ownership"
-      ],
-      "preferredQualifications": [
-        "Previous experience as a quant trader is a strong advantage",
-        "Knowledge of market microstructure and liquidity fragmentation",
-        "Exposure to high-frequency or intraday strategies"
-      ],
-      "offer": [
-        "Above market compensation",
-        "Year-end performance-based bonus",
-        "Opportunities for professional growth and learning",
-        "Collaborative and dynamic work environment"
-      ]
-    },
-    {
-      "slug": "quantitative-research-engineer",
-      "title": "Quantitative Research Engineer",
+      "slug": "software-developer",
+      "title": "Software Developer",
+      "applyUrl": "https://zrec.in/6VNPX?source=CareerSite",
+      "datePosted": "2026-04-14",
+      "validThrough": "2026-06-15T23:59:59+05:30",
+      "salary": {
+        "min": 2400000,
+        "max": 3600000,
+        "currency": "INR",
+        "period": "YEAR"
+      },
       "overview": [
-        "This is a hybrid role that combines quantitative research, data science, and software engineering. You will be responsible for researching high-frequency datasets, discovering predictive signals, designing backtests, and deploying models to production.",
-        "This role is ideal for someone who enjoys solving real-world problems using a scientific approach, thrives in fast-paced environments, and wants their work to have a direct trading impact."
+        "We are hiring a Software Developer to build and maintain the systems our traders and quantitative researchers use every day. You will write performance-critical code in C++ and Python, and own features end-to-end from design to production.",
+        "This is a hands-on role on a small team — the code you ship moves P&L the next trading day, not the next quarter."
       ],
       "responsibilities": [
-        "Analyze market and order book data to identify alpha-generating signals",
-        "Prototype and evaluate predictive models using statistical techniques",
-        "Design and run controlled backtests to assess strategy performance and robustness",
-        "Collaborate with traders and engineers to ensure efficient execution and system integration"
+        "Design, develop, test, and maintain components of our trading and research platform",
+        "Write low-latency, high-throughput code in C++ and Python",
+        "Build internal tools and infrastructure used directly by traders and quantitative researchers",
+        "Diagnose and resolve issues in live production trading systems",
+        "Profile, benchmark, and optimize hot paths in production code",
+        "Collaborate with traders, researchers, and other engineers on project delivery"
       ],
       "requiredQualifications": [
-        "4+ years of experience in quantitative research, data science, or software development",
-        "Proficiency in Python/C#/C++/RUST",
-        "Strong background in mathematics, statistics and probability",
-        "Analytical mindset with the ability to interpret market data and performance metrics",
-        "A proactive mindset with a willingness to take ownership"
+        "3–5 years of professional experience building production software systems",
+        "Strong proficiency in C++ and Python",
+        "Hands-on experience with multithreading and multiprocessing",
+        "Solid grasp of data structures, algorithms, and software design patterns",
+        "Comfort working in Linux environments",
+        "Genuine interest in financial markets and algorithmic trading"
       ],
       "preferredQualifications": [
-        "PhD in statistics or mathematics is a strong advantage",
-        "Experience building data models or backtesting infrastructure",
-        "Knowledge of financial markets and trading concepts"
+        "Experience building latency-sensitive or systems-level applications",
+        "Exposure to network programming, sockets, or kernel-bypass stacks",
+        "Prior work in quantitative finance, trading, or market data systems",
+        "Contributions to open-source systems projects"
       ],
       "offer": [
-        "Above market compensation",
-        "Year-end performance-based bonus",
-        "Opportunities for professional growth and learning",
-        "Collaborative and dynamic work environment"
-      ]
-    },
-    {
-      "slug": "senior-software-engineer",
-      "title": "Senior Software Engineer",
-      "overview": "Obsidian Capital is seeking a highly skilled Senior Software Engineer responsible for developing tools and infrastructure used by Traders and Quantitative Researchers. In this role, you will be working with others to provide cutting-edge technology solutions that improve our existing trading system. You will have an opportunity to work on high-impact projects that influence the entire organization.",
-      "responsibilities": [
-        "Design, develop, and maintain sophisticated trading algorithms",
-        "Optimize code for low-latency performance in a fast-paced trading environment",
-        "Enhance trading and research processes by leveraging and improving our proprietary infrastructure",
-        "Evaluate new technologies and suggest fundamental improvements to our technology stack",
-        "Collaborate with other developers, traders, and quantitative researchers to implement and refine trading strategies",
-        "Identify, troubleshoot, and resolve issues in real-time trading environments"
-      ],
-      "requiredQualifications": [
-        "Proficiency in C#/C++/RUST",
-        "5+ years of professional experience in building software systems",
-        "Solid understanding of data structures, algorithms, and design patterns",
-        "Interest in financial markets and algorithmic trading",
-        "Capability to lead projects",
-        "High capacity to learn and implement new technologies"
-      ],
-      "preferredQualifications": [
-        "Familiarity with AWS and Linux",
-        "Experience building latency-sensitive applications",
-        "Experience in low-level development",
-        "Experience in quantitative finance or algorithmic trading",
-        "Knowledge of financial markets and trading concepts"
-      ],
-      "offer": [
-        "Above market compensation",
-        "Year-end performance-based bonus",
-        "Opportunities for professional growth and learning",
-        "Collaborative work environment"
+        "Compensation: INR 24–36 LPA, based on experience",
+        "Year-end performance-linked bonus",
+        "Direct ownership of high-impact work in a small, focused team",
+        "Exposure to the full stack of a proprietary trading business — research, execution, risk, infrastructure",
+        "Collaborative work environment alongside traders, researchers, and engineers"
       ]
     }
   ]
