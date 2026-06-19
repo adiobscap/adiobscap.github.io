@@ -21,6 +21,18 @@ export default function HomePage() {
             Quantitative trading firm, leveraging algorithms to provide liquidity
             in financial markets
           </p>
+          <p className="mt-5 text-xs sm:text-sm text-white/60">
+            Risk policy and disclosures are available as a{' '}
+            <a
+              href="/rms_policy.pdf"
+              download="rms_policy.pdf"
+              type="application/pdf"
+              className="text-white underline underline-offset-4 hover:text-white/80"
+            >
+              PDF download
+            </a>
+            .
+          </p>
         </div>
       </div>
     </section>
