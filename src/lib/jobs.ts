@@ -2,8 +2,8 @@
 //
 // Typed access to the canonical jobs data file at src/data/jobs.json.
 // This is the single source of truth for all careers content — the
-// careers index page, the [slug] detail route, and the [slug]/apply
-// route all read from here. Adding a new role is a pure JSON edit.
+// careers index page and the [slug] detail route both read from here.
+// Applications are handled externally by Zoho Recruit.
 
 import jobsData from '@/data/jobs.json';
 
@@ -51,9 +51,8 @@ export type Job = {
   employmentType?: string;
   workSetup?: string;
   startDate?: string;
-  /** External apply URL (e.g. an ATS-hosted page). When present, the
-   *  detail page links here instead of the internal /apply route. */
-  applyUrl?: string;
+  /** Zoho Recruit application URL. All applications are handled externally. */
+  applyUrl: string;
   /** Fields below are required by Google for Jobs structured data.
    *  When `datePosted` is present, the detail page emits a JobPosting
    *  JSON-LD block. */
@@ -164,7 +163,7 @@ export function buildJobPostingJsonLd(
   };
 
   if (job.validThrough) ld.validThrough = job.validThrough;
-  if (job.applyUrl) ld.url = job.applyUrl;
+  ld.url = job.applyUrl;
 
   if (job.salary) {
     ld.baseSalary = {
