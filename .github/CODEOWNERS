@@ -1,0 +1,5 @@
+# Require an Obsidian Capital owner to review every repository change.
+* @adiobscap @KarnaAgrawal
+
+# Keep repository ownership and automation changes explicitly owned.
+/.github/ @adiobscap @KarnaAgrawal
