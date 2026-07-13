@@ -1,4 +1,5 @@
-# Require an Obsidian Capital owner to review every repository change.
+# Identify the Obsidian Capital owners responsible for repository changes.
+# Reviews are optional; branch protection still requires a pull request and green build.
 * @adiobscap @KarnaAgrawal
 
 # Keep repository ownership and automation changes explicitly owned.
