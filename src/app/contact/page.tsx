@@ -1,3 +1,5 @@
+import { companyContact } from '@/config/company';
+
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-smoky-black text-white">
@@ -29,10 +31,10 @@ export default function ContactPage() {
           <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
             <h2 className="font-title text-2xl text-white">Phone</h2>
             <a
-              href="tel:+917926563289"
+              href={companyContact.phoneHref}
               className="mt-4 inline-block text-white/70 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white"
             >
-              +91 79 26563289
+              {companyContact.phoneDisplay}
             </a>
           </section>
 
