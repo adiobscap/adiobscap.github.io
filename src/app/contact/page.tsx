@@ -17,14 +17,14 @@ export default function ContactPage() {
           </p>
         </header>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
           <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
-            <h2 className="font-title text-2xl text-white">Email</h2>
+            <h2 className="font-title text-2xl text-white">General enquiries</h2>
             <a
-              href="mailto:admin@obsidiancapital.in"
+              href={companyContact.generalEmailHref}
               className="mt-4 inline-block break-all text-white/70 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white"
             >
-              admin@obsidiancapital.in
+              {companyContact.generalEmail}
             </a>
           </section>
 
@@ -35,6 +35,22 @@ export default function ContactPage() {
               className="mt-4 inline-block text-white/70 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white"
             >
               {companyContact.phoneDisplay}
+            </a>
+          </section>
+
+          <section className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
+            <h2 className="font-title text-2xl text-white">
+              Investor grievances
+            </h2>
+            <p className="mt-4 text-sm leading-6 text-white/55">
+              Use this dedicated address for investor complaints and grievance
+              redressal.
+            </p>
+            <a
+              href={companyContact.grievanceEmailHref}
+              className="mt-3 inline-block break-all text-white/70 underline decoration-white/30 underline-offset-4 transition-colors hover:text-white"
+            >
+              {companyContact.grievanceEmail}
             </a>
           </section>
 
