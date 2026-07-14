@@ -17,7 +17,47 @@ export default function Footer() {
             <a href={companyContact.phoneHref} className="hover:text-white">
               {companyContact.phoneDisplay}
             </a>{' '}
-            | Email: admin@obsidiancapital.in
+            | General enquiries:{' '}
+            <a
+              href={companyContact.generalEmailHref}
+              className="hover:text-white"
+            >
+              {companyContact.generalEmail}
+            </a>
+          </p>
+          <p className="leading-relaxed">
+            Investor grievances:{' '}
+            <a
+              href={companyContact.grievanceEmailHref}
+              className="underline decoration-white/30 underline-offset-4 hover:text-white"
+            >
+              {companyContact.grievanceEmail}
+            </a>{' '}
+            |{' '}
+            <a
+              href="/investor_charter#investor-complaints"
+              className="underline decoration-white/30 underline-offset-4 hover:text-white"
+            >
+              Complaint disclosures
+            </a>{' '}
+            |{' '}
+            <a
+              href="https://scores.sebi.gov.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-4 hover:text-white"
+            >
+              SEBI SCORES
+            </a>{' '}
+            |{' '}
+            <a
+              href="https://smartodr.in/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-4 hover:text-white"
+            >
+              SMART ODR
+            </a>
           </p>
           <p className="leading-relaxed text-white/70">
             <span className="text-white/80">Client eligibility:</span>{' '}
