@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Investor Charter | Obsidian Capital',
   description:
-    'SEBI investor charter resources published by Obsidian Investment Pvt. Ltd.',
+    'SEBI investor charter resources published by Obsidian Investment Private Limited.',
 };
 
 const documents = [
