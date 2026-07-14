@@ -2,28 +2,42 @@
   "name": "adiobscap.github.io",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0 <23"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "preview": "npx serve out -l 4000"
+    "build": "next build && node scripts/harden-static-export.mjs",
+    "preview": "npx --no-install serve out -l 4000",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "security:source": "node scripts/security-check.mjs",
+    "security:export": "node scripts/check-static-export.mjs",
+    "security:audit": "npm audit --audit-level=moderate",
+    "check": "npm run lint && npm run typecheck && npm run security:source && npm run build && npm run security:export"
   },
   "dependencies": {
-    "next": "^16.2.3",
+    "next": "16.2.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "three": "^0.181.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@types/node": "^22.19.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.181.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
-    "eslint-config-next": "^16.2.3",
-    "postcss": "^8.5.6",
+    "eslint-config-next": "16.2.10",
+    "postcss": "8.5.19",
+    "serve": "14.2.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@babel/core": "7.29.7",
+    "js-yaml": "4.3.0",
+    "postcss": "8.5.19"
   }
 }

@@ -21,10 +21,7 @@ export default function CosmosBackground() {
         controls: OrbitControls;
     let stars: StarData[] = [];
     const starMeshes: THREE.Mesh[] = [];
-    let raycaster: THREE.Raycaster,
-        mouse: THREE.Vector2;
     let isAnimating = true;
-    let selectedStar: THREE.Mesh | null = null;
     let animationId: number;
 
     interface StarData {
@@ -70,10 +67,6 @@ export default function CosmosBackground() {
       controls.screenSpacePanning = false;
       controls.minDistance = 50;
       controls.maxDistance = 1000;
-
-      // Raycaster for mouse interaction
-      raycaster = new THREE.Raycaster();
-      mouse = new THREE.Vector2();
 
       // Add ambient starfield background
       addBackgroundStars();
@@ -193,7 +186,7 @@ export default function CosmosBackground() {
         starMeshes.forEach((mesh: THREE.Mesh, index: number) => {
           const time = Date.now() * 0.001;
           const scale = 1 + Math.sin(time + index) * 0.1;
-          if (mesh !== selectedStar && mesh.children[0]) {
+          if (mesh.children[0]) {
             mesh.children[0].scale.set(scale, scale, scale);
           }
         });

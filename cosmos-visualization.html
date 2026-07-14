@@ -305,27 +305,40 @@
         // Show star information
         function showStarInfo(star) {
             const infoPanel = document.getElementById('star-info');
-            let html = `
-                <h3>${star.name}</h3>
-            `;
+            infoPanel.replaceChildren();
+
+            const title = document.createElement('h3');
+            title.textContent = String(star.name);
+            infoPanel.appendChild(title);
+
+            const addMetric = (label, value, options = {}) => {
+                const paragraph = document.createElement('p');
+                const heading = document.createElement('strong');
+                heading.textContent = `${label}: `;
+                paragraph.append(heading, document.createTextNode(String(value)));
+
+                if (options.caption) {
+                    paragraph.style.marginTop = '10px';
+                    paragraph.style.fontSize = '11px';
+                    paragraph.style.color = '#888';
+                    paragraph.replaceChildren(document.createTextNode(String(value)));
+                }
+
+                infoPanel.appendChild(paragraph);
+            };
 
             // Add portfolio metrics if available (frontier stars)
             if (star.risk !== undefined && star.return !== undefined) {
-                html += `
-                    <p><strong>Risk (σ):</strong> ${star.risk.toFixed(3)}</p>
-                    <p><strong>Return (μ):</strong> ${star.return.toFixed(3)}</p>
-                    <p><strong>Sharpe Ratio:</strong> ${star.sharpe !== undefined ? star.sharpe.toFixed(3) : 'N/A'}</p>
-                    <p style="margin-top: 10px; font-size: 11px; color: #888;">On Efficient Frontier</p>
-                `;
+                addMetric('Risk (σ)', star.risk.toFixed(3));
+                addMetric('Return (μ)', star.return.toFixed(3));
+                addMetric('Sharpe Ratio', star.sharpe !== undefined ? star.sharpe.toFixed(3) : 'N/A');
+                addMetric('', 'On Efficient Frontier', { caption: true });
             } else {
-                html += `
-                    <p><strong>Magnitude:</strong> ${star.magnitude}</p>
-                    <p><strong>Distance:</strong> ${star.distance} light years</p>
-                    <p style="margin-top: 10px; font-size: 11px; color: #888;">Background star</p>
-                `;
+                addMetric('Magnitude', star.magnitude);
+                addMetric('Distance', `${star.distance} light years`);
+                addMetric('', 'Background star', { caption: true });
             }
 
-            infoPanel.innerHTML = html;
             infoPanel.style.display = 'block';
         }
 

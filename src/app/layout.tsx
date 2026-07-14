@@ -5,6 +5,7 @@ import { Figtree, EB_Garamond } from 'next/font/google';
 import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import securityPolicy from '@/config/security-policy.json';
 
 // 2. Configure the fonts
 // Figtree will be our default body font
@@ -47,6 +48,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/*
+          GitHub Pages cannot set custom response headers. These meta policies
+          provide browser-enforced protection for the static export; the
+          response-header requirements are documented in docs/security.md.
+        */}
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content={securityPolicy.contentSecurityPolicy}
+        />
+        <meta name="referrer" content={securityPolicy.referrerPolicy} />
+      </head>
       {/* 3. Apply the font variables to the body tag */}
       <body
         className={`${fontBody.variable} ${fontTitle.variable} bg-black font-sans`}
